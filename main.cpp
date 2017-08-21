@@ -5,6 +5,7 @@
 const int SIZE=100;
 
 bool search(int v[],int s,int p,int x);
+int positive(int v[],int s,int p,int n);
 
 int main()
 {
@@ -18,6 +19,7 @@ int main()
 		vet[i]=rand()%100;
 	}
 
+	printf("Il vettore ha %d numeri positivi\n",positive(vet,SIZE,0,0));
 	printf("Che numero vuoi cercare? ");
 	scanf("%d",&x);
 
@@ -55,3 +57,19 @@ bool search(int v[],int s,int p,int x)
 
 	return false;
 }
+
+int positive(int v[],int s,int p,int n)
+{
+	if (p!=s)
+	{
+		if (v[p]>0)
+		{
+			return positive(v,s,p+1,n+1);
+		}
+		else
+		{
+			return positive(v,s,p+1,n);
+		}
+	}
+
+	return n;
