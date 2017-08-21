@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 
-const int SIZE=10;
+const int SIZE=100;
 
 struct node
 {
@@ -17,12 +17,15 @@ node *insert(node *ptr,int x);
 node *deleteeq(node *ptr);
 void show(node *ptr,int i);
 bool search(int v[],int s,int p,int x);
+int positive(int v[],int s,int p,int n);
 
 int main()
 {
 	srand(time(NULL));
 	node *first=NULL;
+  int vetb[SIZE]={0};
 	int i=0;
+	int x=0;
 
 	for (i=0;i<SIZE;++i)
 	{
@@ -33,6 +36,24 @@ int main()
 	first=deleteeq(first);
 	show(first,0);
 	printf("\n");
+
+	for (i=0;i<SIZE;++i)
+	{
+		vetb[i]=rand()%100;
+	}
+
+	printf("Il vettore ha %d numeri positivi\n",positive(vetb,SIZE,0,0));
+	printf("Che numero vuoi cercare? ");
+	scanf("%d",&x);
+
+	if (search(vetb,SIZE,0,x))
+	{
+		printf("Il numero esiste nel vettore!\n");
+	}
+	else
+	{
+		printf("Il numero non esiste nel vettore!\n");
+	}
 
 	system("pause");
 
@@ -107,4 +128,21 @@ bool search(int v[],int s,int p,int x)
 	}
 
 	return false;
+}
+
+int positive(int v[],int s,int p,int n)
+{
+	if (p!=s)
+	{
+		if (v[p]>0)
+		{
+			return positive(v,s,p+1,n+1);
+		}
+		else
+		{
+			return positive(v,s,p+1,n);
+		}
+	}
+
+	return n;
 }
